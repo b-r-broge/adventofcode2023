@@ -1,0 +1,18 @@
+day1
+53148 - too low
+53894 - Gold Star
+54320 - too high
+-----
+day2
+63672 - too low
+63700 = Gold Star
+70000 - too high (random guess)
+---
+day3 - 1
+346289 - too low
+533918 - no
+538282 - no
+---
+day4 - 2
+23027585 - too low
+23398087 - too low

@@ -9,10 +9,10 @@ sum = 0
 schema = {}
 numbers = []
 
-file = File.read('test').split
+file = File.read('input').split
 file.each_with_index { |line, index|
   # don't want negative numbers
-  line.gsub!(/\-!@#$%^*_=+\//, '#')
+  line.gsub!('-', '#')
   schema[index] = {}
   line_items = line.gsub(/\.+/, " ")
   line_items.strip!
@@ -21,8 +21,8 @@ file.each_with_index { |line, index|
   line_values.each { |value|
     is_number = value.to_i.to_s == value
     if is_number
-      tuple = [value.to_i, index, line.index(value)]
-      numbers.push(tuple)
+      indicies = (0 ... line.length).find_all { |i| line[i,value.length] == value }
+      indicies.each { |ind| numbers.push([value.to_i, index, ind]) }
     else
       # number may begin or end (or both) with a symbol, need to backup check here
       if value.length() > 1
@@ -40,8 +40,10 @@ file.each_with_index { |line, index|
           end
         }
         numbers.push([num, index, line.index(value)+value.to_s.length()-num.to_s.length()]) unless num == 0
+        num = 0
       else
-        schema[index][line.index(value)] = true
+        indicies = (0 ... line.length).find_all { |i| line[i] == value }
+        indicies.each { |ind| schema[index][ind] = true }
       end
     end
   }
@@ -63,7 +65,7 @@ numbers.each { |number_tuple|
     break if found_symbol
   end
 
-  # p number
+  # p number if found_symbol
   # p found_symbol
   sum += number if found_symbol
 }
