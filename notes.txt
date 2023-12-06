@@ -16,3 +16,6 @@ day3 - 1
 day4 - 2
 23027585 - too low
 23398087 - too low
+---
+day5 - 1
+84470622 - Gold Star
