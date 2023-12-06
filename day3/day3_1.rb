@@ -1,10 +1,3 @@
-# to new var gsub n number of '.' with single character ' '
-# split new var on ' '
-# grab values, store in nested hash .dig(row, start_column)
-# store numbers in array as tuples (val, row, start_column)
-# loop through, checking nested hash for all surroundings for symbol
-# those with a symbol nearby += sum, those without, continue
-
 sum = 0
 schema = {}
 numbers = []
@@ -14,39 +7,18 @@ file.each_with_index { |line, index|
   # don't want negative numbers
   line.gsub!('-', '#')
   schema[index] = {}
-  line_items = line.gsub(/\.+/, " ")
-  line_items.strip!
-  line_values = line_items.split(' ')
-
-  line_values.each { |value|
-    is_number = value.to_i.to_s == value
-    if is_number
-      indicies = (0 ... line.length).find_all { |i| line[i,value.length] == value }
-      indicies.each { |ind| numbers.push([value.to_i, index, ind]) }
+  num = 0
+  line.split('').each_with_index { |value, idx|
+    if value.to_i.to_s == value
+      num = (num*10)+value.to_i
     else
-      # number may begin or end (or both) with a symbol, need to backup check here
-      if value.length() > 1
-        # 617*123
-        num = 0
-        arr = value.split('')
-        arr.each_with_index { |val, idx|
-          is_num = val.to_i.to_s == val
-          if is_num
-            num = (num*10)+val.to_i
-          else
-            schema[index][line.index(value)+idx] = true
-            numbers.push([num, index, line.index(value)+idx-num.to_s.length()]) unless num == 0
-            num = 0
-          end
-        }
-        numbers.push([num, index, line.index(value)+value.to_s.length()-num.to_s.length()]) unless num == 0
-        num = 0
-      else
-        indicies = (0 ... line.length).find_all { |i| line[i] == value }
-        indicies.each { |ind| schema[index][ind] = true }
-      end
+      schema[index][idx] = true unless value == '.'
+      numbers.push([num, index, idx-num.to_s.length]) unless num == 0
+      num = 0
     end
   }
+  numbers.push([num, index, line.length-num.to_s.length]) unless num == 0
+  num = 0
 }
 
 numbers.each { |number_tuple|

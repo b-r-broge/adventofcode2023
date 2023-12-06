@@ -10,6 +10,7 @@ day2
 ---
 day3 - 1
 346289 - too low
+533775 - Gold Star
 533918 - no
 538282 - no
 ---

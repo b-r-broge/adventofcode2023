@@ -5,7 +5,7 @@
 #  - lowest value, highest value, transformation
 #  - in_range
 #  - transform(x)
-$file = 'test'
+$file = 'input'
 $seeds = []
 
 class Mapping
@@ -123,7 +123,18 @@ def part1
 end
 
 def part2
-  # aka do it at scale!...nah
+  # aka do it at scale!
+  process_inputs()
+  min_location = nil
+  for step in 0...$seeds.length/2 do
+    start = $seeds[step*2].to_i
+    stop = $seeds[step*2].to_i + $seeds[step*2+1].to_i
+    for seed in start...stop do
+      out = traverse_maps(seed.to_i)
+        min_location = out if min_location == nil || out < min_location
+    end
+  end
+  p min_location
 end
 
 # part1()
