@@ -14,5 +14,9 @@ day 7 - (parents arrive)
 day 8 - (parents visiting, no internet)
 day 9 - (parents visiting, no internet)
 day 10 - (parents visiting)
-day 11 -  (recovering)
-day 12 -
+day 11 - (recovering)
+day 12 - (started)
+day 13 -
+day 14 -
+day 15 - *
+day 16 -
